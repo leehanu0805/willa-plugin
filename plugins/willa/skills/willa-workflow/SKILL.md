@@ -1,81 +1,86 @@
 ---
 name: willa-workflow
-description: /willa 명령 실행 시 사용하는 6단계 워크플로우. Will3D UI를 분석·질문·기획·적용·검증·디자인 감사하는 표준 절차. frontend-design 플러그인과 협업.
+description: /willa 명령 실행 시 사용하는 6단계 워크플로우. Will3D UI를 분석·질문·기획·적용·검증한다. willa 가 스스로 방향성을 판단하며 각 실행마다 다른 결과를 낼 수 있다.
 ---
 
 # Willa Workflow
 
-`/willa` 가 호출되면 이 스킬이 발동한다. **6단계**를 순서대로 수행한다 (마지막 Polish 단계는 선택).
+`/willa` 호출 시 이 스킬 발동. **6단계** 순차 (6은 선택).
+
+## 핵심 원칙 · willa는 자유롭다
+
+- 매 실행마다 **다른 aesthetic/구조를 선택**할 수 있음
+- `patterns/` 는 영감 레퍼런스 · 강제 아님
+- `design-system.md` 는 **이전에 탐색된 한 가지 예시** · 새 방향 자유
+- 기존 결과물(will3d-ui 5173 · willa-preview 5175)에 얽매이지 않음
+- 치과 CT 도메인 전문가용이라는 맥락만 지킴
 
 ## 단계 요약
 
 ```
-1. Discovery     → phases/1-discovery.md
-    ↓
-2. Clarify       → phases/2-clarify.md
-    ↓
-3. Plan          → phases/3-plan.md     [산출: .willa/plan-*.md]
-    │            [Design Direction 섹션 포함 — patterns/design-system.md 준수]
-    ↓
-4. Scaffold      → phases/4-scaffold.md [수정: prototype/will3d-ui/src/**]
-    │            [신규 컴포넌트는 frontend-design skill 호출]
-    ↓
-5. Serve         → phases/5-serve.md    [확인: localhost:5173]
-    ↓
-6. Polish (선택)  → phases/6-polish.md   [frontend-design 감사 · anti-patterns 점검]
-                                        [산출: .willa/audit-*.md]
+1. Discovery    → phases/1-discovery.md    (C++ 코드 읽기)
+   ↓
+2. Clarify      → phases/2-clarify.md      (AskUserQuestion 4개)
+   ↓
+3. Plan         → phases/3-plan.md         (.willa/plan-*.md · 자유 형식)
+   ↓
+4. Scaffold     → phases/4-scaffold.md     (willa-preview 수정)
+   ↓
+5. Serve        → phases/5-serve.md        (localhost:5175 확인)
+   ↓
+6. Polish (선택) → phases/6-polish.md      (.willa/audit-*.md)
 ```
 
-## frontend-design 플러그인 사용 요약
+## frontend-design 사용
 
-| 단계 | 호출 여부 | 목적 |
-|------|----------|------|
-| 3. Plan | ❌ 호출 안 함 | 패턴 문서만 참조 |
-| 4. Scaffold | ✅ 신규 컴포넌트 생성 시만 | 초기 코드 생성 |
-| 6. Polish | ✅ 감사 대상 컴포넌트 많을 때 | Reading Room 준수 점검 |
+| 단계 | 호출 | 목적 |
+|------|------|------|
+| 4. Scaffold | 신규 컴포넌트 생성 시 | 이번 plan 방향성에 맞춘 코드 생성 |
+| 6. Polish | 감사 필요 시 | 일관성 체크 (특정 시스템 강제 아님) |
 
-**호출 시 항상**: `patterns/design-system.md` 준수 · anti-patterns 금지 명시.
+호출 시 **이번 plan 의 방향성** 만 전달. 고정 디자인 시스템 강제 안 함.
 
 ## 진입 조건
 
-- 인자 없이 `/willa` → 전체 UI 재검토
-- `/willa <토픽>` → 특정 영역 재검토
-- `/willa refactor` → 기존 기획과 실제 코드 간극 정리
-- `/willa refresh` → 가장 최근 plan 기반으로 prototype 재생성 (질문 생략)
+- `/willa` / `/willa:willa` → 전체 재검토
+- `/willa polish` → Phase 6 단독
 
 ## 중단 조건
 
-각 단계에서 사용자가 AskUserQuestion에 "중단" 또는 "그만"으로 응답하면 즉시 종료. 중단 지점까지의 부분 산출물은 `.willa/draft-*.md` 로 저장.
+각 단계에서 AskUserQuestion에 "중단/그만" → 즉시 종료. `.willa/draft-*.md` 저장.
 
 ## 산출물 위치
 
-모든 산출물은 Will3D 루트(`C:\code\Will3D\`)의 `.willa/` 디렉토리에 저장:
-
 ```
-.willa/
-├── plan-20260420-2134.md         # 이번 실행 기획 문서
-├── plan-latest.md → plan-...md   # symlink (최신)
-└── placement-*.md                # /newilla 결과
+C:\code\Will3D\.willa\
+├── plan-{timestamp}.md
+├── plan-latest.md
+├── placement-*.md        (/newilla 결과)
+└── audit-*.md            (/willa polish 결과)
 ```
 
-## 패턴 참조
+## 패턴 디렉토리 (영감용)
 
-`patterns/` 디렉토리에 재사용 가능한 UI 패턴 문서들이 있다. 기획 시 참조한다:
+`patterns/` 문서는 과거 Will3D UI 탐색 중 등장한 패턴 기록. 참고만.
 
-- phase-navigation.md
-- tool-rail.md
-- inspector-tabs.md
-- command-palette.md
-- anatomy-navigator.md
-- guide-overlay.md
-- context-menu.md
+- phase-navigation
+- tool-rail
+- inspector-tabs
+- command-palette
+- anatomy-navigator
+- guide-overlay
+- context-menu
+- design-system (Reading Room 예시)
+- docs-explorer
+
+**강제 없음**. 이번 실행에 맞지 않으면 무시하고 새 패턴 제안해도 OK.
 
 ## 템플릿
 
-prototype/will3d-ui/ 자체가 살아있는 템플릿이다. `/willa` 는 이것을 수정하는 방식으로 작동한다. (별도 템플릿 복사 없음)
+`prototype/willa-preview/` 가 willa 의 출력 공간. 매 실행 여기만 수정.
+기존 `prototype/will3d-ui/` (5173) 는 건드리지 않음.
 
 ## 주의사항
 
 - Will3D C++ 본체 수정 금지
-- 작업 범위는 `current.md` 의 "작업 범위" 절에 한정
 - 완료 시 `current.md` 및 `.willa/plan-latest.md` 업데이트

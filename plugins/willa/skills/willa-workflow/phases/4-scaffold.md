@@ -30,38 +30,33 @@ Plan을 실제 `prototype/willa-preview/` 코드에 반영한다.
 3. **TypeScript 체크**: 각 수정 후 `npx tsc --noEmit` — 에러 0 유지
 4. **HMR 의존**: dev server가 이미 떠 있으면 저장하면 자동 반영. 아니면 Serve 단계에서 기동.
 
-## frontend-design 플러그인 호출 (신규 컴포넌트 시)
+## frontend-design 플러그인 호출 (자유롭게)
 
-새 컴포넌트를 **처음부터 만들 때만** `Skill` 도구로 `frontend-design:frontend-design` 호출. 기존 컴포넌트 수정은 패턴 문서(`patterns/*.md`)만으로 충분.
+새 컴포넌트는 `Skill("frontend-design:frontend-design")` 으로 생성. **willa가 이번 plan에서 결정한 방향성**을 argv로 전달하되, 특정 디자인 시스템 강제하지 않음.
 
-### 호출 형식
+### 호출 형식 (예시 · 강제 아님)
 
 ```
 Skill(
   skill: "frontend-design:frontend-design",
-  args: "<Reading Room 디자인 시스템 준수 명시>\n
-          <컴포넌트 역할/범위>\n
-          <참조할 기존 컴포넌트>\n
-          <절대 준수사항: glow/pulse/이모지 금지, mono는 숫자만>"
+  args: "이번 plan에서 택한 aesthetic: {willa의 방향성}
+          컴포넌트 역할: {무엇을 만들 건지}
+          제약: 치과 CT 전문가용 · shadcn/ui 재사용 가능
+          그 외는 자유롭게 · distinctive design 환영"
 )
 ```
 
-### 준수 원칙 (argv에 명시)
+### 호출 원칙
 
-1. **Reading Room 토큰만 사용** — `patterns/design-system.md` 참조
-2. **Lucide 아이콘 · 1.5~2 stroke** (이모지 금지)
-3. **mono 폰트는 숫자 전용**
-4. **120ms hover · 200ms panel** — 그 이상 느리거나 화려한 애니메이션 금지
-5. **shadcn 컴포넌트 재사용** — `src/components/ui/` 먼저 확인
-6. **warm shadow** — slate-blue 아님
+1. **plan의 디자인 방향성** 만 전달 · 과도한 제약 금지
+2. **shadcn 컴포넌트** 는 `src/components/ui/` 재사용 (접근성 · 구조 때문)
+3. 나머지 (컬러 · 타이포 · 모션 · 아이콘 스타일) 는 **willa/frontend-design 재량**
+4. 생성된 결과가 plan 방향성과 맞는지만 검증 · 고정 체크리스트 없음
 
-### 호출 후 검증
+### Reading Room 은 한 예시일 뿐
 
-생성된 코드를 그대로 사용하지 말고:
-- 컬러 값이 `var(--w3-*)` CSS 변수로 되어 있는지
-- 이모지/glow 없는지
-- 토큰 외 직접 색 사용 시 `patterns/design-system.md` 와 대조
-- 불일치 시 인라인 수정
+`patterns/design-system.md` 의 Reading Room 은 **과거에 한번 탐색한 방향**.
+이번에 다른 방향 선택 시 해당 패턴 문서 무시 OK. 새 aesthetic 이 plan 에 기록돼 있으면 그것이 우선.
 
 ## 패턴별 적용 가이드
 
