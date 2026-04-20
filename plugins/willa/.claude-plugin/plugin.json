@@ -7,27 +7,7 @@
     "email": "leehanu0805@gmail.com"
   },
   "homepage": "https://github.com/leehanu0805/willa-plugin",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/leehanu0805/willa-plugin.git"
-  },
+  "repository": "https://github.com/leehanu0805/willa-plugin.git",
   "license": "MIT",
-  "keywords": ["will3d", "ui-planning", "dental-ct", "ux-design", "medical-imaging"],
-  "targets": {
-    "projectHints": [
-      "Will3D",
-      "prototype/will3d-ui"
-    ]
-  },
-  "dependencies": {
-    "plugins": [
-      {
-        "name": "frontend-design",
-        "source": "claude-plugins-official",
-        "required": true,
-        "usedAt": ["phase-3-plan", "phase-4-scaffold", "phase-6-polish"],
-        "purpose": "디자인 품질 · 아름다운 타이포/컬러/모션 · distinctive aesthetic 보장"
-      }
-    ]
-  }
+  "keywords": ["will3d", "ui-planning", "dental-ct", "ux-design", "medical-imaging"]
 }
