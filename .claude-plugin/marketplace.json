@@ -1,0 +1,16 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "willa-plugin",
+  "description": "Will3D UI/UX 기획 플러그인 모음",
+  "owner": {
+    "name": "leehanu0805",
+    "email": "leehanu0805@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "willa",
+      "description": "Will3D 전용 UI/UX 기획 · 사용자가 기능/도구를 쉽게 찾도록 메뉴 재배치·리디자인",
+      "category": "design"
+    }
+  ]
+}
