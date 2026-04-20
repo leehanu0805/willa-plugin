@@ -17,6 +17,19 @@ curl -s -o /dev/null -w "%{http_code}" http://localhost:5175/
   npm run dev   # background
   ```
 
+### 5176 · will3d-current (현재 Will3D UI 참고용)
+
+willa 제안(5175) 과 비교할 기준. 현재 Qt 애플리케이션 UI 모방. willa 워크플로우는 **수정 안 함** — 상태 확인만:
+
+```
+curl -s -o /dev/null -w "%{http_code}" http://localhost:5176/
+```
+
+미기동이면 안내:
+```
+cd C:/code/Will3D/prototype/will3d-current && npm run dev
+```
+
 ### 5173, 5174 는 건드리지 않음
 
 - 5173 (`will3d-ui`) 와 5174 (`willa-docs`) 는 willa 워크플로우와 무관.
@@ -33,8 +46,12 @@ cd C:/code/Will3D/prototype/willa-preview && npx tsc --noEmit
 ```
 ✅ Willa 완료 — {토픽 또는 "전체 재검토"}
 
-🆕 출력: http://localhost:5175/
+🆕 제안: http://localhost:5175/
    • MOCKUP · WIREFRAME · GUIDE 토글
+
+📎 참고: http://localhost:5176/
+   • 현재 Will3D 소프트웨어 UI (Qt 모방)
+   • 5175 와 비교용 · willa 는 수정 안 함
 
 📝 주요 변경
    • {Plan의 변경 사항 3-5줄 bullet}
@@ -44,9 +61,9 @@ cd C:/code/Will3D/prototype/willa-preview && npx tsc --noEmit
    • 수정된 파일: prototype/willa-preview/src/**
 
 🔜 다음
-   • 새 기능 배치: /newilla "기능명"
-   • 미세 조정: /willa refactor
-   • 디자인 감사: /willa polish
+   • /willa:newilla "기능명" — 새 기능 배치
+   • /willa:willa — 다시 기획
+   • /willa:selfheal N — 자가 개선 N회
 ```
 
 ## current.md 업데이트
