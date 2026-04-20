@@ -17,6 +17,26 @@ Plan을 실제 `prototype/willa-preview/` 코드에 반영한다.
 - `prototype/will3d-ui/` · `prototype/willa-docs/` 는 willa와 무관. 건드리지 않음.
 - Will3D C++ 본체 절대 수정 금지 (읽기 전용).
 
+## CBCT 도구 본질 (절대 위반 금지)
+
+willa-preview 결과물은 **여전히 CBCT 뷰어/플래너** 로 인식되어야 한다:
+
+✅ **유지해야 함**
+- 뷰포트가 화면 주인공 (최소 60%, 권장 70%+)
+- 3축 MPR + 3D VR 표시 가능 (Axial/Sagittal/Coronal/3D)
+- 다크 뷰포트 (DICOM 표준)
+- 드래그로 슬라이스 스크롤/도구 사용
+- 빠른 도구 접근 (rail · 상단 strip · 단축키 등 어느 형태든)
+- 측정 · 임플란트 · 세그먼트 등 객체 선택·편집
+
+❌ **금지 형태**
+- 저널/논문 리더 (정적 문서)
+- 대시보드 (카드 위주, 작은 차트)
+- 소셜/타임라인 피드
+- 뷰포트가 썸네일 수준으로 작아지는 레이아웃
+
+구조 자유도는 **뷰포트 배치 / 도구 배치 / 패널 배치** 내에서 발휘. 위 본질을 깨면 plan 단계로 복귀.
+
 **수정 금지**:
 - `prototype/willa-preview/src/components/ui/**` (shadcn 생성 컴포넌트 — `npx shadcn add` 로만)
 - `prototype/willa-preview/node_modules/**`
