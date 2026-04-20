@@ -1,0 +1,33 @@
+{
+  "name": "willa",
+  "version": "0.1.0",
+  "description": "Will3D 전용 UI/UX 기획 플러그인 — /willa 로 메뉴 재배치/리디자인 기획, /newilla 로 새 기능 배치 결정",
+  "author": {
+    "name": "leehanu0805",
+    "email": "leehanu0805@gmail.com"
+  },
+  "homepage": "https://github.com/leehanu0805/willa-plugin",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/leehanu0805/willa-plugin.git"
+  },
+  "license": "MIT",
+  "keywords": ["will3d", "ui-planning", "dental-ct", "ux-design", "medical-imaging"],
+  "targets": {
+    "projectHints": [
+      "Will3D",
+      "prototype/will3d-ui"
+    ]
+  },
+  "dependencies": {
+    "plugins": [
+      {
+        "name": "frontend-design",
+        "source": "claude-plugins-official",
+        "required": true,
+        "usedAt": ["phase-3-plan", "phase-4-scaffold", "phase-6-polish"],
+        "purpose": "디자인 품질 · 아름다운 타이포/컬러/모션 · distinctive aesthetic 보장"
+      }
+    ]
+  }
+}
