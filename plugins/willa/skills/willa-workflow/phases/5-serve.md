@@ -61,20 +61,23 @@ cd C:/code/Will3D/prototype/willa-preview && npx tsc --noEmit
    • 수정된 파일: prototype/willa-preview/src/**
 
 🔜 다음
+   • /selfheal         — 자가 개선 무제한 (스마트 stop) ⭐ 권장
+   • /selfheal 5       — 5회 제한
    • /willa:newilla "기능명" — 새 기능 배치
-   • /willa:willa — 다시 기획
-   • /willa:selfheal N — 자가 개선 N회
-   • /figwilla — Figma 로 옮기기 (html.to.design 수동 가이드)
+   • /willa:willa      — 다시 기획
+   • /figwilla         — Figma 로 옮기기
 
-💡 디자이너 전달/Figma 편집이 필요하면 /figwilla 실행 →
-   html.to.design 플러그인 안내 출력 (4개 Phase URL · Desktop Companion · 체크포인트)
+💡 자가 힐 먼저 돌려서 품질 safe-guard 걸기 → Figma 이전 권장
 ```
 
-## Figma 전송 제안
+## 자동 제안 (항상 출력)
 
-Serve 완료 후 **항상** 한 줄로 안내 (강요 아님):
+Serve 완료 직후 **두 줄**로 고정 안내:
 
-> "Figma 로 옮기려면 `/figwilla` — html.to.design 플러그인 4단계 가이드."
+> "자가 힐 돌릴래? `/selfheal` (무제한 · 스마트 stop) · `/selfheal 5` (5회 제한)"
+> "Figma 로 옮기려면 `/figwilla` — html.to.design 4단계 가이드."
+
+순서: **자가 힐 먼저 → Figma** (willa 출력 품질 올린 뒤 이관이 낫다).
 
 ## current.md 업데이트
 
