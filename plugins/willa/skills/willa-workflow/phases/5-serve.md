@@ -1,6 +1,6 @@
 # Phase 5 · Serve
 
-Scaffold 완료 후 willa-preview(5175) 확인 + 최종 보고.
+Phase 4.75 Self-Heal 자동 루프 완료 후 **완성본 보고**. 5175 는 이미 HMR 로 최신 상태.
 
 ## 체크
 
@@ -60,24 +60,19 @@ cd C:/code/Will3D/prototype/willa-preview && npx tsc --noEmit
    • 기획: .willa/plan-latest.md
    • 수정된 파일: prototype/willa-preview/src/**
 
-🔜 다음
-   • /selfheal         — 자가 개선 무제한 (스마트 stop) ⭐ 권장
-   • /selfheal 5       — 5회 제한
-   • /willa:newilla "기능명" — 새 기능 배치
-   • /willa:willa      — 다시 기획
-   • /figwilla         — Figma 로 옮기기
+자가 힐 결과 요약 (Phase 4.75)
+   • 반복: N회 · 수정: M건 · Plan 정렬도: X% → Y%
 
-💡 자가 힐 먼저 돌려서 품질 safe-guard 걸기 → Figma 이전 권장
+🔜 다음
+   • /willa:newilla "기능명" — 새 기능 배치
+   • /willa:willa      — 다시 기획 (다른 archetype)
+   • /selfheal         — 추가 자가 치유 (Plan 정렬 외 일반 품질)
+   • /figwilla         — Figma 로 옮기기 (html.to.design)
 ```
 
-## 자동 제안 (항상 출력)
+## 자동 제안 (한 줄)
 
-Serve 완료 직후 **두 줄**로 고정 안내:
-
-> "자가 힐 돌릴래? `/selfheal` (무제한 · 스마트 stop) · `/selfheal 5` (5회 제한)"
-> "Figma 로 옮기려면 `/figwilla` — html.to.design 4단계 가이드."
-
-순서: **자가 힐 먼저 → Figma** (willa 출력 품질 올린 뒤 이관이 낫다).
+> "Figma 로 옮기려면 `/figwilla` · 추가 자가 개선이 필요하면 `/selfheal`."
 
 ## current.md 업데이트
 

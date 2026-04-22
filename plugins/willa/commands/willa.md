@@ -44,8 +44,9 @@ skills/willa-workflow/SKILL.md 를 따라 7단계 진행 (6·7은 선택):
 | 2. Clarify   | phases/2-clarify.md   | **4개 고정 질문 무조건** → 의도 정규화 |
 | 3. Plan      | phases/3-plan.md      | `.willa/plan-*.md` · 후보 유연 생성 · 사용자 선택 · 토큰 구체화 |
 | 4. Scaffold  | phases/4-scaffold.md  | prototype/willa-preview/ 파일 생성/수정 |
-| 4.5 Investigate ⭐ | phases/4.5-investigate.md | **품질 조사 + 사용자 필수 확인** · Serve 전 게이트 |
-| 5. Serve     | phases/5-serve.md     | localhost:5175 확인 + 요약 보고 |
+| 4.5 Investigate ⭐ | phases/4.5-investigate.md | **품질 조사 + 사용자 필수 확인** · 게이트 |
+| 4.75 Self-Heal ⭐ | phases/4.75-self-heal.md | **자동 · 무제한** · Plan 정렬 + 조작성 개선 · 사용자 질문 없음 |
+| 5. Serve     | phases/5-serve.md     | 완성본 보고 + 5175 확인 |
 | 6. Polish    | phases/6-polish.md    | (선택) frontend-design 감사 → `.willa/audit-*.md` |
 
 ## 참고 패턴

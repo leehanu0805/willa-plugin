@@ -1,11 +1,11 @@
 ---
 name: willa-workflow
-description: /willa 명령 실행 시 사용하는 6단계 워크플로우. Will3D UI를 분석·질문·기획·적용·검증·감사. willa 가 스스로 방향성을 판단하며 각 실행마다 다른 결과를 낼 수 있다.
+description: /willa 명령 실행 시 사용하는 7단계 워크플로우. Will3D UI를 분석·질문·기획·적용·검증·자가치유·감사. willa 가 스스로 방향성을 판단하며 각 실행마다 다른 결과를 낼 수 있다.
 ---
 
 # Willa Workflow
 
-`/willa` 호출 시 이 스킬 발동. **6단계** 순차 (6은 선택).
+`/willa` 호출 시 이 스킬 발동. **7단계** 순차 (6은 선택).
 
 ## 핵심 원칙
 
@@ -36,9 +36,11 @@ description: /willa 명령 실행 시 사용하는 6단계 워크플로우. Will
    ↓
 4. Scaffold       → phases/4-scaffold.md      (willa-preview 수정)
    ↓
-4.5 Investigate  ⭐ → phases/4.5-investigate.md (품질 조사 + 사용자 확인 · Serve 전 게이트)
+4.5 Investigate  ⭐ → phases/4.5-investigate.md (품질 조사 + 사용자 확인 · 게이트)
    ↓
-5. Serve          → phases/5-serve.md          (localhost:5175 보고)
+4.75 Self-Heal ⭐ → phases/4.75-self-heal.md   (자동 · 무제한 · Plan 정렬 + 조작성 개선)
+   ↓
+5. Serve          → phases/5-serve.md          (완성본 보고)
    ↓
 6. Polish (선택)  → phases/6-polish.md          (.willa/audit-*.md)
 ```
