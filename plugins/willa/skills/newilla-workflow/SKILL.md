@@ -90,12 +90,12 @@ AskUserQuestion(
 
 (B 선택 시만 진행)
 
-`AskUserQuestion` 으로 4개 질문:
+`AskUserQuestion` 으로 5개 질문:
 
 ### Q1. 사용 빈도
-- 일상적 (진료마다 씀) → Tool Rail Pinned / Phase 직접 배치 후보
-- 가끔 (특정 케이스) → Tool Rail 그룹 / Inspector 섹션 후보
-- 특수 (월 1회 이하) → Command Palette / Context Menu 후보
+- 일상적 (진료마다 씀) → P3 ToolRail Pinned / P4 TopBar 후보
+- 가끔 (특정 케이스) → P1 Inspector 탭 / P3 ToolRail drawer 후보
+- 특수 (월 1회 이하) → P5 Command Palette / P6 Context Menu 후보
 
 ### Q2. 주 사용자
 - 모든 의사
@@ -106,32 +106,45 @@ AskUserQuestion(
 ### Q3. 기능 타입
 - **Tool**: 클릭 후 드래그/입력으로 데이터 생성 (측정, 그리기 등)
 - **Panel**: 상시 정보 표시 (수치, 상태, 리스트)
-- **Modal/Sheet**: 복잡한 제어 (설정, 마법사)
+- **Modal/Sheet**: 복잡한 제어 (설정, 마법사) — ⚠ 뷰포트 차단 · 최후 수단
 - **Action**: 1회 실행 (캡처, 내보내기)
 
 ### Q4. 연관 Phase
-- LOAD
-- EXAMINE
-- PLAN
-- DELIVER
-- 여러 Phase 공통
+- LOAD · EXAMINE · PLAN · DELIVER · 여러 Phase 공통
+
+### Q5. 상태 유지 범위 (신규)
+- **환자별** (임플란트 · 측정 · 주석): Inspector 후보
+- **세션별** (대화 · Undo · 최근): Inspector 탭 or 사이드 후보
+- **전역** (프리셋 · 테마): TopBar / Palette / Settings 후보
+
+이 Q5 가 "데이터 저장 위치 + 어느 범위에서 사라지면 안 되는지" 결정. 배치 자연스럽게 따라옴.
 
 ---
 
 ## Step 4 · Recommend
 
-답변 기반으로 **Top 3 배치 후보**를 생성. 매칭 점수 기반:
+답변 기반으로 **Top 3 배치 후보**를 생성.
 
-| 빈도 × 타입 | 추천 위치 |
-|-------------|----------|
-| 일상 × Tool | Tool Rail (primary + Pinned 자동 추가) |
-| 일상 × Panel | Inspector 새 탭 또는 기존 탭 최상단 섹션 |
-| 가끔 × Tool | Tool Rail (primary=false, drawer에서 접근) |
-| 가끔 × Panel | Inspector 섹션 추가 |
-| 가끔 × Modal | TopBar 아이콘 버튼 + Command Palette |
-| 특수 × Tool | Command Palette + ToolRail 숨김 |
-| 특수 × Action | Command Palette 전용 |
-| Phase 특화 × 어떤 것이든 | 해당 Phase 내 전용 영역 |
+**필수 참조**: `patterns/feature-placement.md` — 8개 아키타입(P1-P8) · 확장 매칭 표 · 공통 기능 권장 배치 · UX 법칙(Fitts/Hick/3-click) · 금지 기본값.
+
+### 간이 매칭 표 (상세는 patterns/feature-placement.md)
+
+| 빈도 × 타입 × 상태범위 | 추천 아키타입 |
+|----------------------|-------------|
+| 일상 × Tool × 환자별 | P3 ToolRail Pinned |
+| 일상 × Panel × 환자별 | P1 Inspector 탭 최상단 |
+| 일상 × Action × 전역 | P2 BottomDock · P4 TopBar |
+| 가끔 × Panel × 세션별 | P1 Inspector 탭 · P7 슬라이드 |
+| 가끔 × Modal × 전역 | P4 TopBar + 모달 · P5 Palette |
+| 특수 × Action × 전역 | P5 Palette 전용 |
+| Phase 특화 | 해당 Phase SubNav 내 도메인 |
+
+### 추천 규칙
+
+- **Top 3 필수** — 후보 간 트레이드오프 비교. 1개만 제시 금지.
+- **P1-P8 만 사용** — 임의 위치 창안 금지. 공통 기능은 `patterns/feature-placement.md` "공통 기능 권장 배치" 표 우선 참조.
+- **기본값 금지** — 모달/Floating/새 탭을 검토 없이 자동 선택 금지. patterns 의 "금지" 섹션 준수.
+- **"넣지 않음" 항상 포함** — 억지 배치 방지.
 
 ### 출력 포맷
 
@@ -240,4 +253,6 @@ AskUserQuestion(
 
 {반영 안 한 경우: "5173/5174 목업은 그대로 유지됩니다."}
 {반영한 경우: "localhost:5173 새로고침으로 확인."}
+
+💡 추가 편집/Figma 이동을 원하면 /figwilla — html.to.design 수동 가이드 출력.
 ```

@@ -64,7 +64,17 @@ cd C:/code/Will3D/prototype/willa-preview && npx tsc --noEmit
    • /willa:newilla "기능명" — 새 기능 배치
    • /willa:willa — 다시 기획
    • /willa:selfheal N — 자가 개선 N회
+   • /figwilla — Figma 로 옮기기 (html.to.design 수동 가이드)
+
+💡 디자이너 전달/Figma 편집이 필요하면 /figwilla 실행 →
+   html.to.design 플러그인 안내 출력 (4개 Phase URL · Desktop Companion · 체크포인트)
 ```
+
+## Figma 전송 제안
+
+Serve 완료 후 **항상** 한 줄로 안내 (강요 아님):
+
+> "Figma 로 옮기려면 `/figwilla` — html.to.design 플러그인 4단계 가이드."
 
 ## current.md 업데이트
 

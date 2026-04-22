@@ -16,6 +16,17 @@ Phase 6는 이를 스캔하고 수정 제안.
 
 ## 절차
 
+### Step 0 · 비평 프로토콜 (선택 · 심화)
+
+복잡한 plan 이면 `references/critique-methodology.md` 의 **Liz Lerman 4-step** 구조로 감사:
+
+1. **Statements of Meaning** — 무엇이 효과적이었는지 서술
+2. **Artist as Questioner** — willa(작성자) 가 불확실한 부분 질문
+3. **Neutral Questions** — 감사자가 판단 없는 질문
+4. **Opinion Time** — "X 에 대한 의견 들어도 될까?" 허락 받고 의견
+
+이 프로토콜로 frontend-design 호출 프롬프트 설계. 무턱대고 "이것저것 고쳐" 금지.
+
 ### Step 1 · 자동 감사 (frontend-design + 패턴)
 
 `Skill` 도구로 `frontend-design:frontend-design` 호출:
