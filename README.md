@@ -1,8 +1,8 @@
 # willa
 
-**Will3D 전용 UI/UX 기획 · 프로토타입 · 자가치유 플러그인 for Claude Code.**
+**Will3D 기획 · Claude Code.**
 
-> v0.5.0 · MIT · 한국어/영어 혼용 지원 · Will3D(치과 CBCT 3D 뷰어) 특화
+> v0.5.0 · Will3D 특화
 
 ---
 
@@ -26,7 +26,7 @@ willa 는 **기획 → 프로토타입 React 코드 → 자가 개선 → Figma 
 | **`/willa`** | 5175 sandbox 에 전면 UI 재기획 · 7단계 | "레이아웃 실험 · 덮어써도 OK" |
 | **`/willa:newilla`** | 새 기능 1개의 배치 결정 · Top 3 후보 | "AI 챗 넣어줘" · "알림 기능 추가" |
 | **`/willakeep`** ⭐ | 5175 → 5173 이관 + 73 자동 스냅샷 | "75 결과 마음에 듦 · 킵" |
-| **`/willa76`** | 5176 (Will3D Qt 모방) 미기동 시 기동 | "현재 Will3D 와 비교" |
+| **`/willa76`** | 5176 (현재 Will3D 모방) | "Will 3D 디자인, 기능을 웹에 시각화" |
 | **`/figwilla`** | 5175 을 Figma 로 이전 · html.to.design 가이드 | "디자이너에게 전달" |
 | **`/selfheal`** | 자가 진단·개선 무제한 반복 · 스마트 stop | "추가 품질 루프" |
 
@@ -100,14 +100,14 @@ willa 는 **기획 → 프로토타입 React 코드 → 자가 개선 → Figma 
 ### 워크플로우
 
 ```
+/willa76       → 5176 (Will3D Qt 모방) 미기동 시 기동 · 참고용
+```
 /willa         → 5175 sandbox 에 자유 실험 (덮어써도 OK)
     ↓ 결과 마음에 들면
 /willakeep     → 5175 → 5173 이관 + 이전 73 자동 스냅샷
     ↓ Serve 자동
 5174 willa-docs 에 plan/audit 등 자동 발행
 
-/willa76       → 5176 (Will3D Qt 모방) 미기동 시 기동 · 참고용
-```
 
 ### `/willakeep` 안전장치
 
@@ -232,44 +232,3 @@ willa-plugin/plugins/willa/
 규칙: 영어 원문 복붙 금지 · 1-2줄 인용으로만 · 출력 언어는 사용자 따라감.
 
 ---
-
-## FAQ
-
-**Q. Will3D 없이 사용 가능?**
-A. 불가. 이 플러그인은 Will3D 구조를 가정 (TabType · Phase · Domain · Inspector 등). 다른 의료 뷰어에 쓰려면 fork 해서 도메인 재정의 필요.
-
-**Q. `prototype/willa-preview/` 가 없으면?**
-A. 첫 실행 시 Phase 4 Scaffold 에서 생성. 또는 수동으로 Vite + React 프로젝트 init 후 `.willa/plan-*.md` 를 적용해도 OK.
-
-**Q. `frontend-design` 플러그인 없이 써도 되나?**
-A. 기술적으로 가능하지만 Plan §3 의 "frontend-design 실호출 의무" 게이트가 차단할 수 있음. 같이 설치 권장.
-
-**Q. 이전 plan 의 archetype 과 같은 걸 또 선택하면?**
-A. Phase 3 품질 게이트가 "이전 plan 과 사실상 동일" 을 감지하고 차단. `metrics` 필드가 동일하면 자동 판정.
-
-**Q. Figma 자동 캡처도 되나?**
-A. v0.2.0 에서 `/willa:figma` (MCP 자동) 제거됨. `/figwilla` (수동 가이드) 만 지원. 이유: html.to.design 수동 임포트가 품질/자유도 우수.
-
----
-
-## 버전 히스토리
-
-| 버전 | 핵심 변경 |
-|------|----------|
-| **v0.6.0** | `/willakeep` (75→73 이관 + 자동 스냅샷 + 원복) · `/willa76` (5176 기동) · 74 docs 자동 발행 · 포트 4 역할 재정의 |
-| v0.5.2 | localhost 포트 관례 문서화 · phase 파일 포트 하드코딩 정리 |
-| v0.5.1 | README 재작성 (v0.5 상태 반영) |
-| v0.5.0 | Plan frontmatter YAML 강제 · frontend-design 실호출 의무 · 게이트 강화 |
-| v0.4.0 | Phase 4.75 Self-Heal 자동 무제한 · /selfheal 독립 명령 |
-| v0.3.1 | /selfheal 스마트 stop 기본 (무제한) |
-| v0.3.0 | Plan 317→145줄 압축 · Clarify 정합성 · newilla SKILL 분리 |
-| v0.2.0 | /figwilla 추가 · /willa:figma 제거 · references 10개 흡수 · 하이브리드 테마 |
-| v0.1.0 | 초기 · 6단계 · /willa + /newilla |
-
----
-
-## 라이선스 · 기여
-
-MIT · 초기 버전 · 외부 기여는 당분간 Will3D 프로젝트 참여자 위주.
-
-이슈/제안: https://github.com/leehanu0805/willa-plugin/issues
