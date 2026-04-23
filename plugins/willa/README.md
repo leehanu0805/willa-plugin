@@ -1,130 +1,213 @@
-# willa-plugin
+# willa
 
-Will3D 전용 UI/UX 기획 Claude Code 플러그인.
+**Will3D 전용 UI/UX 기획 · 프로토타입 · 자가치유 플러그인 for Claude Code.**
 
-## 목표
+> v0.5.0 · MIT · 한국어/영어 혼용 지원 · Will3D(치과 CBCT 3D 뷰어) 특화
 
-Will3D (치과 CBCT 3D 뷰어)의 메뉴·도구 배치를 사용자가 쉽게 찾고 조작할 수 있게 기획한다. **기획(IA/UX) + 디자인 품질(Reading Room 시스템)**을 동시에 챙긴다. 프로토타입을 `prototype/will3d-ui/` 에 즉시 반영하고 localhost에서 MOCKUP / WIREFRAME / GUIDE 3모드로 검증.
+---
 
-## 의존 플러그인
+## 왜 willa 인가
 
-`frontend-design@claude-plugins-official` — 디자인 품질 보장 (신규 컴포넌트 생성 · 디자인 감사). plugin.json `dependencies` 에 선언.
+Will3D 는 복잡한 의료 뷰어다. 14개 탭 · 수십 개 도구 · 여러 직군(일반 치과의 · 임플란트 전문의 · 판독의) 이 쓴다. 메뉴 재배치 한 번 하려고 해도:
 
-## 명령
+- C++ 본체는 건드리기 무서움 (Qt · GLSL · TabMgr)
+- "이거 어디 넣지?" 결정이 매번 주먹구구
+- 의사 입장에서 "어디 있더라" 헤매는 기능이 반복됨
+- Figma 로 옮기고 싶어도 매번 수동 정리
 
-| 명령 | 용도 |
-|------|------|
-| `/willa` | 전체 UI 재검토 — 질문 → 기획 → prototype 반영 (6단계) |
-| `/willa "<토픽>"` | 특정 영역만 재검토 |
-| `/willa refactor` | 기획과 실제 코드 간극 정리 |
-| `/willa refresh` | 최근 plan 기반으로 prototype 재생성 (질문 생략) |
-| `/willa polish` | 디자인 품질 감사만 실행 (Phase 6 단독) |
-| `/newilla "<새 기능명>"` | 새 기능의 UI 배치 결정 (Top 3 후보 추천) |
+willa 는 **기획 → 프로토타입 React 코드 → 자가 개선 → Figma 이전** 까지 한 플러그인으로 자동화한다. 본체는 안 건드리고 `prototype/willa-preview/` 에 결과물을 만든다.
+
+---
+
+## 4개 커맨드
+
+| 명령 | 역할 | 언제 |
+|------|------|------|
+| **`/willa`** | 전면 UI 재기획 · 7단계 워크플로우 | "레이아웃 전체 재구성" |
+| **`/willa:newilla`** | 새 기능 1개의 배치 결정 · Top 3 후보 | "AI 챗 넣어줘" · "알림 기능 추가" |
+| **`/figwilla`** | 5175 을 Figma 로 이전 · html.to.design 수동 가이드 | "디자이너에게 전달" |
+| **`/selfheal`** | 자가 진단·개선 무제한 반복 · 스마트 stop | "품질 한번 더 정리" |
+
+---
+
+## `/willa` 7단계 워크플로우
+
+```
+1. Discovery      UI/UX 현재 상태 관찰 (C++ · 프로토타입 모두)
+   ↓
+2. Clarify        4개 고정 질문 (타깃 · 이슈 · 범위 · archetype)
+   ↓
+3. Plan           YAML frontmatter + frontend-design 실호출 · .willa/plan-*.md 저장
+   ↓
+4. Scaffold       prototype/willa-preview/ 코드 수정
+   ↓
+4.5 Investigate   Plan vs 구현 diff · 사용자 확인 게이트
+   ↓
+4.75 Self-Heal    자동 · 무제한 · Plan 정렬 + 조작성 개선 · 스마트 stop
+   ↓
+5. Serve          완성본 보고 + localhost:5173 확인
+   ↓
+6. Polish         (선택) frontend-design 디자인 감사
+```
+
+**품질 게이트**: 각 단계마다 차단 조건 · 미달 시 재시도. 예: Plan 에 frontend-design 실호출 없으면 Scaffold 차단.
+
+---
 
 ## 설치
 
-### 1. 로컬 설치 (현재)
+### 마켓플레이스 기반 (권장)
 
-```bash
-# 플러그인 위치
-C:\code\willa-plugin\
-
-# Claude Code에 등록 (이미 이 저장소에 있는 경우 자동 인식)
-# 또는 심볼릭 링크 / 수동 add
 ```
-
-### 2. GitHub 설치 (미래)
-
-```bash
-# 저장소 clone
-git clone https://github.com/leehanu0805/willa-plugin.git ~/.claude/plugins/willa
-
-# Claude Code 재시작
+# Claude Code 세션 안에서
+/plugin marketplace add leehanu0805/willa-plugin
+/plugin install willa@willa-plugin
 /reload-plugins
 ```
 
+### 업데이트
+
+```
+/plugin marketplace update willa-plugin
+/plugin update willa@willa-plugin
+/reload-plugins
+```
+
+---
+
 ## 사전 요구사항
 
-- **Will3D 저장소** 가 `C:\code\Will3D\` 에 클론되어 있어야 함
-- **prototype/will3d-ui/** Vite+React+Tailwind+shadcn 프로토타입이 존재
+- **Will3D 저장소**: `C:\code\Will3D\` 에 clone
+- **프로토타입 폴더**: `prototype/willa-preview/` 또는 `prototype/willa-sandbox/` Vite + React + Tailwind + shadcn
 - **Node.js 18+** · **npm 9+**
-- Claude Code 설치 + TooltipProvider 지원 shadcn 환경
+- Claude Code 설치 · `frontend-design@claude-plugins-official` 플러그인 병용 권장
+
+---
+
+## 사용 예
+
+```
+# 전면 재기획
+/willa
+
+# 새 기능 배치
+/willa:newilla "Airway 분석 도구"
+
+# 결과를 Figma 로 이전
+/figwilla
+
+# 추가 자가 개선
+/selfheal          # 무제한 (스마트 stop)
+/selfheal 5        # 5회 제한
+```
+
+---
+
+## 산출물
+
+`C:\code\Will3D\.willa\` 아래:
+
+```
+plan-{timestamp}.md         /willa 사이클 결과 (YAML frontmatter + 본문)
+plan-latest.md              최신 바로가기
+placement-{slug}.md         /newilla 결과
+deferred-{slug}.md          /newilla "보류" 결정
+audit-{slug}.md             /willa polish 감사
+investigate-{timestamp}.md  Phase 4.5 조사 리포트
+selfheal-defer.md           Self-Heal 에서 미룬 이슈
+```
+
+Plan 은 **YAML frontmatter 필수** (v0.5.0+): archetype · target · files_to_modify · metrics · design_consult 등.
+
+---
 
 ## 구조
 
 ```
-willa-plugin/
-├── .claude-plugin/
-│   └── plugin.json                   플러그인 manifest
+willa-plugin/plugins/willa/
+├── .claude-plugin/plugin.json
 ├── commands/
-│   ├── willa.md                      /willa 슬래시 커맨드 정의
-│   └── newilla.md                    /newilla 커맨드 정의
+│   ├── willa.md              /willa
+│   ├── newilla.md            /willa:newilla
+│   ├── figwilla.md           /figwilla
+│   └── selfheal.md           /selfheal
 ├── skills/
 │   ├── willa-workflow/
-│   │   ├── SKILL.md                  5단계 워크플로우 메타
-│   │   ├── phases/
-│   │   │   ├── 1-discovery.md        현재 상태 파악
-│   │   │   ├── 2-clarify.md          AskUserQuestion 으로 의도 정규화
-│   │   │   ├── 3-plan.md             기획 문서 + 디자인 방향성
-│   │   │   ├── 4-scaffold.md         prototype 코드 (frontend-design 호출)
-│   │   │   ├── 5-serve.md            localhost 확인 + 보고
-│   │   │   └── 6-polish.md           ⭐ (선택) 디자인 감사
-│   │   └── patterns/
-│   │       ├── phase-navigation.md   4-Phase 네비
-│   │       ├── tool-rail.md          좌측 도구 rail
-│   │       ├── inspector-tabs.md     3-탭 Inspector
-│   │       ├── command-palette.md    Spotlight 스타일
-│   │       ├── anatomy-navigator.md  해부 구조 시각 토글
-│   │       ├── guide-overlay.md      번호 pin 가이드
-│   │       ├── context-menu.md       우클릭 메뉴
-│   │       └── design-system.md      ⭐ Reading Room 토큰/타이포/모션
+│   │   ├── SKILL.md
+│   │   ├── phases/           1-discovery ~ 6-polish (4.5·4.75 포함)
+│   │   ├── patterns/         9개 (layout-archetypes ⭐ · design-system 등)
+│   │   └── references/       10개 ux-ui-mastery 흡수 (laws-of-ux · nng-heuristics 등) + _INDEX.md
 │   └── newilla-workflow/
-│       └── SKILL.md                  4단계 새 기능 배치 결정
-├── docs/                             (향후 사용 사례 / 디자인 결정 로그)
-└── README.md                         이 문서
+│       ├── SKILL.md
+│       ├── phases/           1-context ~ 5-patch
+│       └── patterns/
+│           └── feature-placement.md ⭐ (8개 배치 아키타입 P1-P8)
+├── docs/
+│   └── ARCHITECTURE.md
+└── README.md (이 문서)
 ```
 
-## 산출물 위치
-
-Will3D 저장소 루트의 `.willa/` 폴더 아래:
-
-```
-C:\code\Will3D\.willa\
-├── plan-{timestamp}.md               매 /willa 실행마다 저장
-├── plan-latest.md                    항상 최신 기획 사본
-├── plan-previous.md                  직전 plan
-├── placement-{slug}.md               /newilla 결과
-└── deferred-{slug}.md                배치 보류된 기능 목록
-```
+---
 
 ## 설계 원칙
 
-1. **Will3D 전용** — 범용 플러그인이 아님. 도메인(치과 CBCT) 가정.
-2. **Prototype 우선** — 기획은 `prototype/will3d-ui/` 코드 변경으로 즉시 검증.
-3. **C++ 본체 미터치** — `GLSL_Module/`, `UIComponent/`, `TabMgr/` 등 절대 수정 금지.
-4. **추측 금지** — 애매하면 AskUserQuestion.
-5. **되돌릴 수 있게** — 기획 문서 버전 관리, 코드도 git diff 로 확인.
+1. **Will3D 전용** — 범용 아님. 치과 CBCT 뷰어 도메인 가정.
+2. **C++ 본체 미터치** — `GLSL_Module/` · `UIComponent/` · `TabMgr/` 등 절대 수정 금지.
+3. **프로토타입 우선** — 기획은 `prototype/willa-preview/` 코드 변경으로 즉시 검증.
+4. **추측 금지** — 매 실행 AskUserQuestion 으로 의도 정규화.
+5. **하이브리드 테마** — 뷰포트 dark 고정 (DICOM 표준) · chrome bright 선호.
+6. **베이스라인 보호** — `target` 명시 · 보호된 사용자 작품을 willa 가 덮어쓰지 않음.
 
-## 예시 사용
+---
 
-```
-# 전체 재검토
-/willa
+## References (10개 · 방법론 + 미감)
 
-# Implant 플로우만
-/willa "Implant 배치 플로우 개선"
+`ux-ui-mastery` 플러그인에서 흡수한 willa 전용 레퍼런스. Plan / Investigate / Polish 에서 참조.
 
-# 새 기능 배치
-/newilla "Airway 분석 모듈"
+| 분류 | 파일 |
+|------|------|
+| 방법론 | laws-of-ux · nng-heuristics · critique-methodology · cognitive-biases |
+| 미감 | typography-color · token-specification · motion-timing · emotional-design |
+| 상태/문구 | states-empty-error · microcopy |
 
-# 최근 기획 기준으로 prototype 재생성
-/willa refresh
-```
+규칙: 영어 원문 복붙 금지 · 1-2줄 인용으로만 · 출력 언어는 사용자 따라감.
 
-## 라이선스
+---
 
-MIT
+## FAQ
 
-## Contributing
+**Q. Will3D 없이 사용 가능?**
+A. 불가. 이 플러그인은 Will3D 구조를 가정 (TabType · Phase · Domain · Inspector 등). 다른 의료 뷰어에 쓰려면 fork 해서 도메인 재정의 필요.
 
-아직 초기 버전. Will3D 프로젝트 참여자 외 외부 기여는 당분간 받지 않음.
+**Q. `prototype/willa-preview/` 가 없으면?**
+A. 첫 실행 시 Phase 4 Scaffold 에서 생성. 또는 수동으로 Vite + React 프로젝트 init 후 `.willa/plan-*.md` 를 적용해도 OK.
+
+**Q. `frontend-design` 플러그인 없이 써도 되나?**
+A. 기술적으로 가능하지만 Plan §3 의 "frontend-design 실호출 의무" 게이트가 차단할 수 있음. 같이 설치 권장.
+
+**Q. 이전 plan 의 archetype 과 같은 걸 또 선택하면?**
+A. Phase 3 품질 게이트가 "이전 plan 과 사실상 동일" 을 감지하고 차단. `metrics` 필드가 동일하면 자동 판정.
+
+**Q. Figma 자동 캡처도 되나?**
+A. v0.2.0 에서 `/willa:figma` (MCP 자동) 제거됨. `/figwilla` (수동 가이드) 만 지원. 이유: html.to.design 수동 임포트가 품질/자유도 우수.
+
+---
+
+## 버전 히스토리
+
+| 버전 | 핵심 변경 |
+|------|----------|
+| **v0.5.0** | Plan frontmatter YAML 강제 · frontend-design 실호출 의무 · 게이트 강화 |
+| v0.4.0 | Phase 4.75 Self-Heal 자동 무제한 · /selfheal 독립 명령 |
+| v0.3.1 | /selfheal 스마트 stop 기본 (무제한) |
+| v0.3.0 | Plan 317→145줄 압축 · Clarify 정합성 · newilla SKILL 분리 |
+| v0.2.0 | /figwilla 추가 · /willa:figma 제거 · references 10개 흡수 · 하이브리드 테마 |
+| v0.1.0 | 초기 · 6단계 · /willa + /newilla |
+
+---
+
+## 라이선스 · 기여
+
+MIT · 초기 버전 · 외부 기여는 당분간 Will3D 프로젝트 참여자 위주.
+
+이슈/제안: https://github.com/leehanu0805/willa-plugin/issues
