@@ -1,39 +1,38 @@
 # Phase 5 · Serve
 
-Phase 4.75 Self-Heal 자동 루프 완료 후 **완성본 보고**. 5175 는 이미 HMR 로 최신 상태.
+Phase 4.75 Self-Heal 자동 루프 완료 후 **완성본 보고**. target 폴더 dev server 는 이미 HMR 로 최신 상태.
 
-## 체크
+## Target 기반 확인
 
-### 5175 · willa-preview ⭐ (willa의 출력)
+**포트 표준 매핑** (README "로컬호스트 포트 관례" 참조):
+
+| 역할 | 기본 폴더 | 기본 포트 |
+|------|---------|---------|
+| willa 출력 (sandbox) | `prototype/willa-sandbox/` | 5175 |
+| 보호 baseline (preview) | `prototype/willa-preview/` | 5173 |
+| 참고 (Qt 모방) | `prototype/will3d-current/` | 5176 |
+| 문서 사이트 | `prototype/willa-docs/` | 5174 |
+
+### target 폴더의 dev server 확인
+
+Plan frontmatter `target` 필드에서 폴더 읽고 해당 dev port 로:
 
 ```
-curl -s -o /dev/null -w "%{http_code}" http://localhost:5175/
+curl -s -o /dev/null -w "%{http_code}" http://localhost:<PORT>/
 ```
 
 - 200 → HMR 로 이미 반영됨. OK.
 - 실패 → 기동:
   ```
-  cd C:/code/Will3D/prototype/willa-preview
+  cd C:/code/Will3D/prototype/<target>
   npm run dev   # background
   ```
 
-### 5176 · will3d-current (현재 Will3D UI 참고용)
+### 참고 서버 (수정 안 함 · 상태 확인만)
 
-willa 제안(5175) 과 비교할 기준. 현재 Qt 애플리케이션 UI 모방. willa 워크플로우는 **수정 안 함** — 상태 확인만:
-
-```
-curl -s -o /dev/null -w "%{http_code}" http://localhost:5176/
-```
-
-미기동이면 안내:
-```
-cd C:/code/Will3D/prototype/will3d-current && npm run dev
-```
-
-### 5173, 5174 는 건드리지 않음
-
-- 5173 (`will3d-ui`) 와 5174 (`willa-docs`) 는 willa 워크플로우와 무관.
-- Phase 5 에서도 상태 확인만 하거나 아예 언급 안 함.
+- **5176 will3d-current** — willa 결과와 비교용 Qt 모방. 미기동이면 안내만.
+- **5174 willa-docs** — newilla "5174 반영" 선택 시만 업데이트 · 그 외 건드리지 않음.
+- **baseline (5173 preview)** — target 이 sandbox 일 때 건드리지 않음 · 사용자 명시적 `target: willa-preview` 일 때만 수정.
 
 ## 최종 TypeScript 체크
 
@@ -46,19 +45,18 @@ cd C:/code/Will3D/prototype/willa-preview && npx tsc --noEmit
 ```
 ✅ Willa 완료 — {토픽 또는 "전체 재검토"}
 
-🆕 제안: http://localhost:5175/
-   • MOCKUP · WIREFRAME · GUIDE 토글
+🆕 제안: http://localhost:<TARGET_PORT>/   (target: {willa-sandbox | willa-preview | ...})
 
 📎 참고: http://localhost:5176/
    • 현재 Will3D 소프트웨어 UI (Qt 모방)
-   • 5175 와 비교용 · willa 는 수정 안 함
+   • willa 결과와 비교용 · willa 는 수정 안 함
 
 📝 주요 변경
    • {Plan의 변경 사항 3-5줄 bullet}
 
 📂 파일
    • 기획: .willa/plan-latest.md
-   • 수정된 파일: prototype/willa-preview/src/**
+   • 수정된 파일: prototype/<target>/src/**
 
 자가 힐 결과 요약 (Phase 4.75)
    • 반복: N회 · 수정: M건 · Plan 정렬도: X% → Y%
@@ -84,6 +82,6 @@ cd C:/code/Will3D/prototype/willa-preview && npx tsc --noEmit
 
 ## 에러 복구
 
-- 5175 기동 실패 → `cd willa-preview && npm install` 시도
-- port 충돌 → `vite.config.ts` strictPort true 이므로 실패 명확
+- target dev server 기동 실패 → `cd prototype/<target> && npm install` 시도
+- port 충돌 → `vite.config.ts` + `package.json dev` 양쪽 포트 확인 (npm script `--port` 가 vite config 를 override)
 - TypeScript 에러 → Scaffold 단계 복귀

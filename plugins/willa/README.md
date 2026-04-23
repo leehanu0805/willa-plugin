@@ -84,6 +84,39 @@ willa 는 **기획 → 프로토타입 React 코드 → 자가 개선 → Figma 
 
 ---
 
+## 로컬호스트 포트 관례
+
+willa 는 **target 폴더의 `vite.config.ts` + `package.json` dev script 의 포트** 를 따른다. 플러그인이 특정 포트를 강제하지 않음. 아래는 **권장 표준 매핑**:
+
+| 포트 | 폴더 | 역할 | willa 가 수정? |
+|------|------|------|----------------|
+| **5173** | `prototype/willa-preview/` | **보호 baseline** · 사용자 정성 작품 | 🔒 target 명시 시만 |
+| **5175** | `prototype/willa-sandbox/` | **willa 실험장** · 자유 재구성 (기본 target) | ✅ 자유 |
+| 5174 | `prototype/willa-docs/` | 문서 사이트 | ❌ (newilla "5174 반영" 시만) |
+| 5176 | `prototype/will3d-current/` | 현 Will3D UI 참고용 (Qt 모방) | ❌ 절대 |
+
+### Plan 문서에서 target 선언
+```yaml
+---
+target: willa-sandbox   # 기본 · willa 자유 실험
+# target: willa-preview # 보호 작품 수정 허용 시만
+# target: /absolute/path
+---
+```
+
+target 이 `willa-preview` 인데 사용자 명시 확인 없으면 → Phase 4 Scaffold 가 경고 후 차단 (베이스라인 보호).
+
+### 포트 구성 변경 시
+`prototype/<target>/package.json` 의 `"dev"` 스크립트와 `vite.config.ts` 의 `server.port` **둘 다** 바꿔야 함 (npm script `--port` 가 vite config 를 override).
+
+### dev 서버 기동
+```
+cd prototype/willa-sandbox && npm run dev       # 5175
+cd prototype/willa-preview && npm run dev       # 5173
+```
+
+---
+
 ## 사용 예
 
 ```
