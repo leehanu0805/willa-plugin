@@ -1,6 +1,6 @@
 {
   "name": "willa",
-  "version": "0.5.2",
+  "version": "0.6.0",
   "description": "Will3D 전용 UI/UX 기획 플러그인 — /willa 로 메뉴 재배치/리디자인 기획, /newilla 로 새 기능 배치 결정, /figwilla 로 Figma 이전 수동 가이드",
   "author": {
     "name": "leehanu0805",

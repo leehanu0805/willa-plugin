@@ -34,6 +34,39 @@ curl -s -o /dev/null -w "%{http_code}" http://localhost:<PORT>/
 - **5174 willa-docs** — newilla "5174 반영" 선택 시만 업데이트 · 그 외 건드리지 않음.
 - **baseline (5173 preview)** — target 이 sandbox 일 때 건드리지 않음 · 사용자 명시적 `target: willa-preview` 일 때만 수정.
 
+## 74 docs 자동 발행 (필수 · willa 산출물 publish)
+
+Phase 5 Serve 의 **마지막 스텝** · 5174 willa-docs 에 최신 산출물을 자동 복사.
+
+### 복사 대상 → 위치
+
+| 소스 (.willa/) | 대상 (prototype/willa-docs/public/willa-artifacts/) |
+|----------------|---------------------------------------------------|
+| `plan-latest.md` | `plan-latest.md` (덮어쓰기) |
+| `plan-{timestamp}.md` (최신) | `plans/plan-{timestamp}.md` |
+| `investigate-{timestamp}.md` (최신) | `investigates/investigate-{timestamp}.md` |
+| `audit-*.md` (모두) | `audits/` |
+| `placement-*.md` (모두) | `placements/` |
+| `selfheal-defer.md` (있으면) | `selfheal-defer.md` |
+
+### 실행
+
+```bash
+mkdir -p prototype/willa-docs/public/willa-artifacts/{plans,investigates,audits,placements}
+cp .willa/plan-latest.md prototype/willa-docs/public/willa-artifacts/plan-latest.md 2>/dev/null || true
+# ... 위 표대로 각각
+```
+
+실패해도 willa 플로우 중단 아님 · 경고만 출력.
+
+### willa-docs 측 기대
+
+willa-docs (5174) 가 이 디렉토리를 정적 파일로 서빙 · 또는 자체 페이지에서 markdown 로더로 렌더. 플러그인은 **파일 복사까지만** 책임.
+
+willa-docs 없으면 이 스텝 자동 스킵 (`prototype/willa-docs/` 미존재 체크).
+
+---
+
 ## 최종 TypeScript 체크
 
 ```
