@@ -2,7 +2,7 @@
 
 **Will3D 전용 UI/UX 기획 · 프로토타입 · 자가치유 플러그인 for Claude Code.**
 
-> v0.5.0 · MIT · 한국어/영어 혼용 지원 · Will3D(치과 CBCT 3D 뷰어) 특화
+> v0.6.0 · MIT · 한국어/영어 혼용 지원 · Will3D(치과 CBCT 3D 뷰어) 특화
 
 ---
 
@@ -19,15 +19,16 @@ willa 는 **기획 → 프로토타입 React 코드 → 자가 개선 → Figma 
 
 ---
 
-## 6개 커맨드
+## 커맨드 (6개 + 1 서브모드)
 
 | 명령 | 역할 | 언제 |
 |------|------|------|
 | **`/willa`** | 5175 sandbox 에 전면 UI 재기획 · 7단계 | "레이아웃 실험 · 덮어써도 OK" |
-| **`/willa:newilla`** | 새 기능 1개의 배치 결정 · Top 3 후보 | "AI 챗 넣어줘" · "알림 기능 추가" |
-| **`/willakeep`** ⭐ | 5175 → 5173 이관 + 73 자동 스냅샷 | "75 결과 마음에 듦 · 킵" |
-| **`/willa76`** | 5176 (Will3D Qt 모방) 미기동 시 기동 | "현재 Will3D 와 비교" |
-| **`/figwilla`** | 5175 을 Figma 로 이전 · html.to.design 가이드 | "디자이너에게 전달" |
+| **`/willa polish`** | Phase 6 단독 실행 · frontend-design 디자인 감사 | "기존 결과 품질만 다듬기" |
+| **`/newilla`** (= `/willa:newilla`) | 새 기능 1개의 배치 결정 · Top 3 후보 | "AI 챗 넣어줘" · "알림 기능 추가" |
+| **`/willakeep`** (= `/willa:keep`) ⭐ | 5175 → 5173 이관 + 73 자동 스냅샷 | "75 결과 마음에 듦 · 킵" |
+| **`/willa76`** (= `/willa:76`) | 5176 (Will3D Qt 모방) 미기동 시 기동 | "현재 Will3D 와 비교" |
+| **`/figwilla`** (= `/willa:figwilla`) | 5175 을 Figma 로 이전 · html.to.design 가이드 | "디자이너에게 전달" |
 | **`/selfheal`** | 자가 진단·개선 무제한 반복 · 스마트 stop | "추가 품질 루프" |
 
 **원복**: `/willakeep` 후 사용자가 "원복해줘" · "원복 {레이블}" · "원복 {시간}" 말하면 즉시 복원.
@@ -194,7 +195,7 @@ willa-plugin/plugins/willa/
 │   ├── willa-workflow/
 │   │   ├── SKILL.md
 │   │   ├── phases/           1-discovery ~ 6-polish (4.5·4.75 포함)
-│   │   ├── patterns/         9개 (layout-archetypes ⭐ · design-system 등)
+│   │   ├── patterns/         10개 (layout-archetypes ⭐ · docs-explorer · design-system 등)
 │   │   └── references/       10개 ux-ui-mastery 흡수 (laws-of-ux · nng-heuristics 등) + _INDEX.md
 │   └── newilla-workflow/
 │       ├── SKILL.md
