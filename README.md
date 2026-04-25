@@ -61,31 +61,62 @@ willa 는 **기획 → 프로토타입 React 코드 → 자가 개선 → Figma 
 
 ## 설치
 
-### 마켓플레이스 기반 (권장)
+### Step 1 — Node.js 설치 (없으면)
+
+```bash
+# macOS
+brew install node
+
+# Windows — https://nodejs.org 에서 LTS 다운로드 후 설치
+# 설치 확인
+node -v   # v18 이상
+npm -v
+```
+
+### Step 2 — Claude Code 설치
+
+```bash
+npm install -g @anthropic-ai/claude-code
+
+# 설치 확인
+claude --version
+```
+
+> Claude Code 공식 문서: https://docs.anthropic.com/claude-code
+
+### Step 3 — Will3D 저장소 준비
+
+```bash
+# Will3D 가 C:\code\Will3D\ (Windows) 또는 ~/Will3D (Mac) 에 있어야 함
+git clone https://github.com/hdxwill/Will3D.git C:/code/Will3D   # Windows
+# git clone https://github.com/hdxwill/Will3D.git ~/Will3D         # Mac
+```
+
+### Step 4 — willa + frontend-design 플러그인 설치
+
+Claude Code 실행 후 아래 명령어를 순서대로 입력:
 
 ```
-# Claude Code 세션 안에서
 /plugin marketplace add leehanu0805/willa-plugin
 /plugin install willa@willa-plugin
+
+/plugin marketplace add claude-plugins-official/frontend-design
+/plugin install frontend-design@claude-plugins-official
+
 /reload-plugins
 ```
+
+설치 완료 후 `/willa` 입력하면 바로 시작.
 
 ### 업데이트
 
 ```
 /plugin marketplace update willa-plugin
 /plugin update willa@willa-plugin
+/plugin marketplace update frontend-design
+/plugin update frontend-design@claude-plugins-official
 /reload-plugins
 ```
-
----
-
-## 사전 요구사항
-
-- **Will3D 저장소**: `C:\code\Will3D\` 에 clone
-- **프로토타입 폴더**: `prototype/willa-preview/` 또는 `prototype/willa-sandbox/` Vite + React + Tailwind + shadcn
-- **Node.js 18+** · **npm 9+**
-- Claude Code 설치 · `frontend-design@claude-plugins-official` 플러그인 병용 권장
 
 ---
 
