@@ -19,7 +19,7 @@ willa 는 **기획 → 프로토타입 React 코드 → 자가 개선 → Figma 
 
 ---
 
-## 커맨드 (6개 + 1 서브모드)
+## 커맨드 (7개 + 1 서브모드)
 
 | 명령 | 역할 | 언제 |
 |------|------|------|
@@ -29,6 +29,7 @@ willa 는 **기획 → 프로토타입 React 코드 → 자가 개선 → Figma 
 | **`/willakeep`** ⭐ | 5175 → 5173 이관 + 73 자동 스냅샷 | "75 결과 마음에 듦 · 킵" |
 | **`/willa76`** | 5176 (현재 Will3D 모방) | "Will 3D 디자인, 기능을 웹에 시각화" |
 | **`/figwilla`** | 5175 을 Figma 로 이전 · html.to.design 가이드 | "디자이너에게 전달" |
+| **`/willagit`** ⭐ | `prototype/*` 폴더(들)를 GitHub 에 자동 push (gh CLI 또는 PAT) · 단일=독립 repo / 다중=monorepo · README · .gitignore 자동 | "다른 곳에서도 띄우고 싶음 · 백업" |
 | **`/selfheal`** | 자가 진단·개선 무제한 반복 · 스마트 stop | "추가 품질 루프" |
 
 **원복**: `/willakeep` 후 사용자가 "원복해줘" · "원복 {레이블}" · "원복 {시간}" 말하면 즉시 복원.
@@ -188,7 +189,13 @@ cd prototype/willa-docs && npm run dev          # 5174
 # 추가 자가 개선
 /selfheal          # 무제한 (스마트 stop)
 /selfheal 5        # 5회 제한
+
+# 결과를 GitHub 에 push (다중선택 → monorepo)
+/willagit
 ```
+
+> `/willagit` 은 **gh CLI** 또는 **PAT** 둘 중 하나 필요. 둘 다 없으면 발급 가이드 출력 후 종료.
+> PAT 저장 위치: `~/.willagit/token` (한 줄, scope=`repo`).
 
 ---
 
@@ -221,6 +228,7 @@ willa-plugin/plugins/willa/
 │   ├── willakeep.md          /willakeep (75 → 73 이관 + 자동 스냅샷)
 │   ├── willa76.md            /willa76 (5176 미기동 시 기동)
 │   ├── figwilla.md           /figwilla
+│   ├── willagit.md           /willagit (prototype → GitHub · gh/PAT)
 │   └── selfheal.md           /selfheal
 ├── skills/
 │   ├── willa-workflow/
