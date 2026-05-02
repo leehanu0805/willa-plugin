@@ -2,7 +2,7 @@
 
 **Will3D 기획 · Claude Code.**
 
-> v0.6.0 · Will3D 특화
+> v0.7.0 · Will3D 특화
 
 ---
 
